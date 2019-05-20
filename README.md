@@ -2,7 +2,7 @@
 
 
 
-# Test your Pages: Sitecore + Cypress Integration
+# Cypress For Sitecore
 
 This implementation enables you to run Cypress tests for page items in preview and live mode out of the Sitecore backend.
 For this to work you need this node.js webserver running, which will handle the cypress test execution and display of results: https://repo.deloitte.de/projects/DDSC/repos/deloitte.sitecore.cypress.webserver/browse
