@@ -1,0 +1,53 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.438
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Foundation", "Foundation", "{78A88159-BFD7-46A3-985D-2FE8195778DA}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Testing", "Testing", "{CD126069-02F4-4227-B4CE-86C29A9CFA3C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Deloitte.Foundation.Testing.UI", "src\Foundation\Testing\code\Deloitte.Foundation.Testing.UI.csproj", "{85409E0B-6885-440A-A342-D82ABD318276}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Config", "Config", "{B23E53C0-7C89-403D-8B83-9AC32DC0A52B}"
+	ProjectSection(SolutionItems) = preProject
+		nuget.config = nuget.config
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Serialization", "Serialization", "{A37579C6-EEA2-4F46-AE8D-718360501D9F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Deloitte.Sitecore.Cypress.Foundation.Serialization", "src\Foundation\Serialization\code\Deloitte.Sitecore.Cypress.Foundation.Serialization.csproj", "{CC209C0A-7257-4908-8F66-7361917378D7}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Local|Any CPU = Local|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{85409E0B-6885-440A-A342-D82ABD318276}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{85409E0B-6885-440A-A342-D82ABD318276}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{85409E0B-6885-440A-A342-D82ABD318276}.Local|Any CPU.ActiveCfg = Local|Any CPU
+		{85409E0B-6885-440A-A342-D82ABD318276}.Local|Any CPU.Build.0 = Local|Any CPU
+		{85409E0B-6885-440A-A342-D82ABD318276}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{85409E0B-6885-440A-A342-D82ABD318276}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CC209C0A-7257-4908-8F66-7361917378D7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CC209C0A-7257-4908-8F66-7361917378D7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CC209C0A-7257-4908-8F66-7361917378D7}.Local|Any CPU.ActiveCfg = Release|Any CPU
+		{CC209C0A-7257-4908-8F66-7361917378D7}.Local|Any CPU.Build.0 = Release|Any CPU
+		{CC209C0A-7257-4908-8F66-7361917378D7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CC209C0A-7257-4908-8F66-7361917378D7}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{CD126069-02F4-4227-B4CE-86C29A9CFA3C} = {78A88159-BFD7-46A3-985D-2FE8195778DA}
+		{85409E0B-6885-440A-A342-D82ABD318276} = {CD126069-02F4-4227-B4CE-86C29A9CFA3C}
+		{A37579C6-EEA2-4F46-AE8D-718360501D9F} = {78A88159-BFD7-46A3-985D-2FE8195778DA}
+		{CC209C0A-7257-4908-8F66-7361917378D7} = {A37579C6-EEA2-4F46-AE8D-718360501D9F}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {9DF9B757-4C45-4426-9D8A-5BE838E8EAD0}
+	EndGlobalSection
+EndGlobal

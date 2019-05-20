@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<control xmlns:def="Definition" xmlns="http://schemas.sitecore.net/Visual-Studio-Intellisense">
+  <TestPage>
+    <script type="text/javascript">
+      function getCypressReportUrl(){
+        var urlParams = new URLSearchParams(window.location.search);
+        var cypressReportUrl = urlParams.get('cypressReportUrl');
+        cypressReportUrl = decodeURIComponent(cypressReportUrl);
+
+        return cypressReportUrl;
+      }
+
+      function setIframeSrc(){
+        var cypressReportUrl = getCypressReportUrl();
+        var cypressReportIframe = document.getElementById('cypressReportIframe');
+        cypressReportIframe.src = cypressReportUrl;
+        cypressReportIframe.location = cypressReportUrl;
+      }
+
+      window.onload = setIframeSrc;
+    </script>
+    <FormDialog Icon="Network/24x24/spy.png" Header="Test Results">
+      <CodeBeside Type="Deloitte.Foundation.Testing.UI.Sitecore.Dialogs.TestPageDialog, Deloitte.Foundation.Testing.UI"/>
+
+      <iframe width="770px" height="725px" id="cypressReportIframe" />
+
+    </FormDialog>
+  </TestPage>
+</control>
