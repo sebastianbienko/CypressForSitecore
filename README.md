@@ -36,7 +36,7 @@ To write Sitecore Rendering specific test files, please take a look at the docum
 ## Issues and missing features
 
 - When using multiple test files, the test results are not being merged.
-- There just one test result at a time accessible, right now and it can not actually be differentiated between the "Preview" or "Live" test result, yet.
+- There is just one test result at a time accessible, right now and it can not actually be differentiated between the "Preview" or "Live" test result, yet.
 - The test files are not pre-filtered by the Helix location, yet.
 
 
