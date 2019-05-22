@@ -17,6 +17,7 @@ Read my blog post to get some background information: https://sebastianbienko.gi
 
 ## Installation
 * Install the Sitecore package: https://github.com/sebastianbienko/CypressForSitecore/blob/master/SitecorePackages/Cypress%20for%20Sitecore-0.1.zip
+* Set up a *site*, which uses the *master* database instead of the *web* database to test the preview.
 
 ## Configuration
 * Use the *Deloitte.Sitecore.Foundation.Testing.UI.Cypress.config* file to change the Cypress configuration and to define the base url of the API.
