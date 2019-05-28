@@ -122,6 +122,7 @@
     <Compile Include="Sitecore\PageMode.cs" />
     <Compile Include="Services\Cypress\CypressTestRunner.cs" />
     <Compile Include="Utilities\Sitecore\SitecoreRenderingHelper.cs" />
+    <Compile Include="Utilities\Translation\CypressXmlToJsonConverter.cs" />
     <Content Include="App_Config\Include\Foundation\Deloitte.Sitecore.Foundation.Testing.UI.Helix.Settings.config" />
     <Content Include="App_Config\Include\Foundation\Deloitte.Sitecore.Foundation.Testing.UI.Cypress.config">
       <SubType>Designer</SubType>

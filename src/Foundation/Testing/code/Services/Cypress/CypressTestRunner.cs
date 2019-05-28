@@ -4,22 +4,27 @@ using System.Collections.Specialized;
 using System.IO;
 using System.Linq;
 using System.Net;
+using System.Text;
 using System.Web;
 using System.Xml;
 using Deloitte.Foundation.Testing.UI.Models;
+using Deloitte.Foundation.Testing.UI.Utilities.Translation;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using Sitecore.Mvc.Extensions;
 
 namespace Deloitte.Foundation.Testing.UI.Services.Cypress
 {
     public class CypressTestRunner : IRenderingTestingService
     {
-        private readonly List<KeyValuePair<string, string>> _options;
+        private readonly List<string> _options;
         private readonly string _cypressTestRunnerUrl;
+        private readonly JObject _cypressConfiguration;
 
         public CypressTestRunner(string cypressTestRunnerUrl)
         {
-            _options = new List<KeyValuePair<string, string>>();
+            _options = new List<string>();
+            _cypressConfiguration = new JObject();
             _cypressTestRunnerUrl =
                 cypressTestRunnerUrl ?? throw new ArgumentNullException(nameof(cypressTestRunnerUrl));
         }
@@ -28,7 +33,7 @@ namespace Deloitte.Foundation.Testing.UI.Services.Cypress
         {
             throw new NotImplementedException();
         }
-        
+
         public void RunTests(List<HelixRenderingDefinition> pageRenderings)
         {
             if (pageRenderings == null)
@@ -37,52 +42,42 @@ namespace Deloitte.Foundation.Testing.UI.Services.Cypress
             if (!pageRenderings.Any())
                 throw new ArgumentException($"'{nameof(pageRenderings)}' should not be empty.");
 
-            var serializedPageRenderings = JsonConvert.SerializeObject(pageRenderings);
-            serializedPageRenderings = serializedPageRenderings.Replace(" ", "-").Replace("\"", "\\\"");
-            var additionalOptions = new List<KeyValuePair<string, string>>
-            {
-                new KeyValuePair<string, string>("--env", $"''pageRenderings={serializedPageRenderings}''")
-            };
 
-            var queryString = GetQueryString(additionalOptions);
-            var requestUrl = _cypressTestRunnerUrl;
+            var encodedData = Encoding.UTF8.GetBytes(GetCypressConfiguration(pageRenderings));
+            var request = (HttpWebRequest)WebRequest.Create(_cypressTestRunnerUrl);
+            request.Method = WebRequestMethods.Http.Post;
+            request.ContentType = "application/json";
 
-            if (!string.IsNullOrWhiteSpace(queryString))
-            {
-                requestUrl = requestUrl + queryString;
-            }
-            
-            var request = (HttpWebRequest)WebRequest.Create(requestUrl);
+            var requestStream = request.GetRequestStream();
+            requestStream.Write(encodedData, 0, encodedData.Length);
+
             var response = (HttpWebResponse)request.GetResponse();
             var stream = response.GetResponseStream();
             var streamReader = new StreamReader(stream);
             var result = streamReader.ReadToEnd();
+            requestStream.Dispose();
         }
 
-        public void AddOption(XmlNode xmlNode)
+        public void AddCypressSettings(XmlNode xmlNode)
         {
-            _options.Add(new KeyValuePair<string, string>(xmlNode.Attributes["name"].Value, xmlNode.InnerText));
+            var json = CypressXmlToJsonConverter.Convert(xmlNode);
+
+            _cypressConfiguration.Merge(json);
         }
 
-        private string GetQueryString(List<KeyValuePair<string, string>> additionalOptions)
+        private string GetCypressConfiguration(List<HelixRenderingDefinition> renderings)
         {
-            var queryString = "";
-            var options = new List<KeyValuePair<string, string>>();
-
-            options.AddRange(additionalOptions);
-            options.AddRange(_options);
-
-            options = options.GroupBy(e => e.Key)
-                .Select((e, v) => new KeyValuePair<string, string>(e.Key, string.Join(",", e.Select(o => o.Value)))).ToList();
-
-            var joinedOptions = string.Join("&", options.Select((entry, index) => $"{index}={entry.Key} {HttpUtility.UrlEncode(entry.Value)}"));
-
-            if (!string.IsNullOrWhiteSpace(joinedOptions))
+            var json = JToken.FromObject(new
             {
-                queryString = $"?{joinedOptions}";
-            }
+                env = new
+                {
+                    pageRenderings = renderings
+                }
+            });
 
-            return queryString;
+            _cypressConfiguration.Merge(json);
+
+            return _cypressConfiguration.ToString();
         }
     }
 }
